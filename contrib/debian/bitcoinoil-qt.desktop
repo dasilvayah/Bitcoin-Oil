@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=BitcoinOil
+Comment=BitcoinOil P2P Cryptocurrency
+Comment[fr]=BitcoinOil, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BitcoinOil, eşten eşe kriptografik sanal para birimi
+Exec=bitcoinoil-qt %u
+Terminal=false
+Type=Application
+Icon=bitcoinoil128
+MimeType=x-scheme-handler/bitcoinoil;
+Categories=Office;Finance;

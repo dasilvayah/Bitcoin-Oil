@@ -1,0 +1,5 @@
+Building BitcoinOil
+
+See doc/build-*.md for instructions on building bitcoinoild,
+the intended-for-services, no-graphical-interface, reference
+implementation of BitcoinOil.

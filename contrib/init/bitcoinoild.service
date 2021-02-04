@@ -1,0 +1,22 @@
+[Unit]
+Description=BitcoinOil's distributed currency daemon
+After=network.target
+
+[Service]
+User=bitcoinoil
+Group=bitcoinoil
+
+Type=forking
+PIDFile=/var/lib/bitcoinoild/bitcoinoild.pid
+ExecStart=/usr/bin/bitcoinoild -daemon -pid=/var/lib/bitcoinoild/bitcoinoild.pid \
+-conf=/etc/bitcoinoil/bitcoinoil.conf -datadir=/var/lib/bitcoinoild -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

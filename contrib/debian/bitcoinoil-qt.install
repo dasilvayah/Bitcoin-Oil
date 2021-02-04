@@ -1,0 +1,6 @@
+usr/local/bin/bitcoinoil-qt usr/bin
+share/pixmaps/bitcoinoil32.xpm usr/share/pixmaps
+share/pixmaps/bitcoinoil16.xpm usr/share/pixmaps
+share/pixmaps/bitcoinoil128.png usr/share/pixmaps
+debian/bitcoinoil-qt.desktop usr/share/applications
+debian/bitcoinoil-qt.protocol usr/share/kde4/services/

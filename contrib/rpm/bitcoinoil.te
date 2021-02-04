@@ -1,0 +1,81 @@
+policy_module(bitcoinoil, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type bitcoinoil_t;
+type bitcoinoil_exec_t;
+init_daemon_domain(bitcoinoil_t, bitcoinoil_exec_t)
+
+permissive bitcoinoil_t;
+
+type bitcoinoil_initrc_exec_t;
+init_script_file(bitcoinoil_initrc_exec_t)
+
+type bitcoinoil_conf_t;
+files_type(bitcoinoil_conf_t)
+
+type bitcoinoil_var_lib_t;
+files_type(bitcoinoil_var_lib_t)
+
+type bitcoinoil_var_run_t;
+files_type(bitcoinoil_var_run_t)
+
+type bitcoinoil_port_t;
+corenet_port(bitcoinoil_port_t)
+
+########################################
+#
+# bitcoinoil local policy
+#
+allow bitcoinoil_t self:process { fork };
+
+allow bitcoinoil_t self:fifo_file rw_fifo_file_perms;
+allow bitcoinoil_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(bitcoinoil_t, bitcoinoil_conf_t, bitcoinoil_conf_t)
+manage_files_pattern(bitcoinoil_t, bitcoinoil_conf_t, bitcoinoil_conf_t)
+
+manage_dirs_pattern(bitcoinoil_t, bitcoinoil_var_lib_t, bitcoinoil_var_lib_t)
+manage_files_pattern(bitcoinoil_t, bitcoinoil_var_lib_t, bitcoinoil_var_lib_t)
+files_var_lib_filetrans(bitcoinoil_t, bitcoinoil_var_lib_t, { dir file })
+
+manage_dirs_pattern(bitcoinoil_t, bitcoinoil_var_run_t, bitcoinoil_var_run_t)
+manage_files_pattern(bitcoinoil_t, bitcoinoil_var_run_t, bitcoinoil_var_run_t)
+
+sysnet_dns_name_resolve(bitcoinoil_t)
+corenet_all_recvfrom_unlabeled(bitcoinoil_t)
+
+allow bitcoinoil_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(bitcoinoil_t)
+corenet_tcp_sendrecv_generic_node(bitcoinoil_t)
+corenet_tcp_sendrecv_all_ports(bitcoinoil_t)
+corenet_tcp_bind_generic_node(bitcoinoil_t)
+
+gen_require(`
+    type bitcoinoil_port_t;
+')
+allow bitcoinoil_t bitcoinoil_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type bitcoinoil_port_t;
+')
+allow bitcoinoil_t bitcoinoil_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(bitcoinoil_t)
+
+files_read_etc_files(bitcoinoil_t)
+
+miscfiles_read_localization(bitcoinoil_t)
+
+sysnet_dns_name_resolve(bitcoinoil_t)
+
+allow bitcoinoil_t bitcoinoil_exec_t:file execute_no_trans;
+allow bitcoinoil_t self:process setsched;
+corecmd_exec_ls(bitcoinoil_t)
+corenet_tcp_connect_http_port(bitcoinoil_t)
+dev_read_urand(bitcoinoil_t)
+fs_getattr_xattr_fs(bitcoinoil_t)
+kernel_read_system_state(bitcoinoil_t)

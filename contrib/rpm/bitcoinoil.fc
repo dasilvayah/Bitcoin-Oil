@@ -1,0 +1,8 @@
+/usr/bin/bitcoinoil-cli		--	gen_context(system_u:object_r:bitcoinoil_exec_t,s0)
+/usr/sbin/bitcoinoild		--	gen_context(system_u:object_r:bitcoinoil_exec_t,s0)
+/usr/lib(64)?/bitcoinoil/bitcoinoild		--	gen_context(system_u:object_r:bitcoinoil_exec_t,s0)
+
+/etc/bitcoinoil(/.*)?		gen_context(system_u:object_r:bitcoinoil_conf_t,s0)
+/var/lib/bitcoinoil(/.*)?		gen_context(system_u:object_r:bitcoinoil_var_lib_t,s0)
+
+(/var)?/run/bitcoinoild(/.*)?   gen_context(system_u:object_r:bitcoinoil_var_run_t,s0)
